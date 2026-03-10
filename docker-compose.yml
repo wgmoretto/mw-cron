@@ -6,9 +6,9 @@ services:
     build: .
     restart: always
     ports:
-      - "${PORT:-8090}:8090"
+      - "${PORT:-3847}:3847"
     environment:
-      - PORT=8090
+      - PORT=3847
       - DB_PATH=/app/data/mw-cron.db
       - ADMIN_USER=${ADMIN_USER:-admin}
       - ADMIN_PASS=${ADMIN_PASS:-changeme}
@@ -16,7 +16,7 @@ services:
     volumes:
       - mw-cron-data:/app/data
     healthcheck:
-      test: ["CMD", "wget", "--spider", "-q", "http://localhost:8090/login"]
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:3847/login"]
       interval: 30s
       timeout: 5s
       retries: 3

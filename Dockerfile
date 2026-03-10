@@ -11,6 +11,6 @@ RUN mkdir -p /app/data
 
 VOLUME ["/app/data"]
 
-EXPOSE 8090
+EXPOSE 3847
 
 CMD ["node", "src/index.js"]

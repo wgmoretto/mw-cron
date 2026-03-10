@@ -39,7 +39,7 @@ npm run dev             # Development with hot reload
 docker compose up -d
 ```
 
-Access at `http://localhost:8090`
+Access at `http://localhost:3847`
 
 ## Configuration
 
@@ -47,7 +47,7 @@ All settings are via environment variables (`.env` file or Docker environment):
 
 | Variable | Default | Description |
 |----------|---------|-------------|
-| `PORT` | `8090` | Server port |
+| `PORT` | `3847` | Server port |
 | `DB_PATH` | `./data/mw-cron.db` | SQLite database path |
 | `ADMIN_USER` | `admin` | Login username |
 | `ADMIN_PASS` | `changeme` | Login password |
