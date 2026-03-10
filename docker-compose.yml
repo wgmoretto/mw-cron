@@ -1,0 +1,27 @@
+# EasyPanel-compatible docker-compose
+# Deploy: connect repo in EasyPanel → it auto-detects this compose
+
+services:
+  mw-cron:
+    build: .
+    restart: always
+    ports:
+      - "${PORT:-8090}:8090"
+    environment:
+      - PORT=8090
+      - DB_PATH=/app/data/mw-cron.db
+      - ADMIN_USER=${ADMIN_USER:-admin}
+      - ADMIN_PASS=${ADMIN_PASS:-changeme}
+      - SESSION_SECRET=${SESSION_SECRET:-change-me-to-a-random-32-char-string}
+    volumes:
+      - mw-cron-data:/app/data
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:8090/login"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+volumes:
+  mw-cron-data:
+    driver: local
