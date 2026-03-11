@@ -14,10 +14,8 @@ services:
       - SESSION_SECRET=${SESSION_SECRET:-change-me-to-a-random-32-char-string}
     volumes:
       - mw-cron-data:/app/data
-    networks:
-      - easypanel
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:80/login"]
+      test: ["CMD", "curl", "-f", "http://localhost/login"]
       interval: 30s
       timeout: 5s
       retries: 3
@@ -26,7 +24,3 @@ services:
 volumes:
   mw-cron-data:
     driver: local
-
-networks:
-  easypanel:
-    external: true
