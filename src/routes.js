@@ -433,9 +433,20 @@ function endpointsPage() {
             </div>
           </div>
           <div class="form-group">
-            <label>Cron Expression</label>
+            <label>Check Interval</label>
+            <div class="cron-presets">
+              <button type="button" class="cron-preset" data-cron="*/1 * * * *">1 min</button>
+              <button type="button" class="cron-preset" data-cron="*/5 * * * *">5 min</button>
+              <button type="button" class="cron-preset" data-cron="*/10 * * * *">10 min</button>
+              <button type="button" class="cron-preset" data-cron="*/15 * * * *">15 min</button>
+              <button type="button" class="cron-preset" data-cron="*/30 * * * *">30 min</button>
+              <button type="button" class="cron-preset" data-cron="0 * * * *">1 hour</button>
+              <button type="button" class="cron-preset" data-cron="0 */6 * * *">6 hours</button>
+              <button type="button" class="cron-preset" data-cron="0 */12 * * *">12 hours</button>
+              <button type="button" class="cron-preset" data-cron="0 0 * * *">Daily</button>
+            </div>
             <input type="text" id="ep-cron" value="*/5 * * * *" required>
-            <small class="form-help">Examples: */5 * * * * (every 5min), */30 * * * * (every 30min), 0 * * * * (hourly)</small>
+            <small class="form-help" id="cron-description">Every 5 minutes</small>
           </div>
           <div class="form-group">
             <label>POST Body (JSON)</label>

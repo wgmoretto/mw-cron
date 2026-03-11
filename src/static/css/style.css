@@ -338,6 +338,38 @@ a:hover { color: var(--accent); }
   justify-content: center;
 }
 
+/* ─── Cron Presets ─── */
+.cron-presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 0.5rem;
+}
+
+.cron-preset {
+  padding: 0.35rem 0.7rem;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  color: var(--text-secondary);
+  font-size: 0.78rem;
+  cursor: pointer;
+  transition: var(--transition);
+  font-family: inherit;
+}
+
+.cron-preset:hover {
+  border-color: var(--accent);
+  color: var(--text-primary);
+}
+
+.cron-preset.selected {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: white;
+  box-shadow: 0 0 10px var(--accent-glow-strong);
+}
+
 .page-actions {
   display: flex;
   justify-content: flex-end;

@@ -150,6 +150,7 @@ function openEndpointModal(data = null) {
 
   title.textContent = data ? 'Edit Endpoint' : 'New Endpoint';
   modal.style.display = 'flex';
+  updateCronUI();
 }
 
 function closeEndpointModal() {
@@ -342,6 +343,56 @@ async function testNotification(channel) {
     showToast(err.message, 'error');
   }
 }
+
+// ─── Cron Presets ───
+const cronDescriptions = {
+  '*/1 * * * *': 'Every minute',
+  '*/5 * * * *': 'Every 5 minutes',
+  '*/10 * * * *': 'Every 10 minutes',
+  '*/15 * * * *': 'Every 15 minutes',
+  '*/30 * * * *': 'Every 30 minutes',
+  '0 * * * *': 'Every hour',
+  '0 */2 * * *': 'Every 2 hours',
+  '0 */6 * * *': 'Every 6 hours',
+  '0 */12 * * *': 'Every 12 hours',
+  '0 0 * * *': 'Daily at midnight',
+  '0 0 * * 0': 'Weekly on Sunday',
+};
+
+function describeCron(expr) {
+  if (cronDescriptions[expr]) return cronDescriptions[expr];
+  const parts = expr.split(' ');
+  if (parts.length !== 5) return 'Custom schedule';
+  const [min, hour, dom, mon, dow] = parts;
+  if (min.startsWith('*/') && hour === '*') return `Every ${min.slice(2)} minutes`;
+  if (min === '0' && hour.startsWith('*/')) return `Every ${hour.slice(2)} hours`;
+  if (min === '0' && hour === '0' && dom === '*') return 'Daily at midnight';
+  return 'Custom schedule';
+}
+
+function updateCronUI() {
+  const input = document.getElementById('ep-cron');
+  const desc = document.getElementById('cron-description');
+  if (!input || !desc) return;
+  desc.textContent = describeCron(input.value.trim());
+  document.querySelectorAll('.cron-preset').forEach(btn => {
+    btn.classList.toggle('selected', btn.dataset.cron === input.value.trim());
+  });
+}
+
+document.addEventListener('click', (e) => {
+  if (e.target.classList.contains('cron-preset')) {
+    const input = document.getElementById('ep-cron');
+    if (input) {
+      input.value = e.target.dataset.cron;
+      updateCronUI();
+    }
+  }
+});
+
+document.addEventListener('input', (e) => {
+  if (e.target.id === 'ep-cron') updateCronUI();
+});
 
 // ─── Utility ───
 function esc(str) {
